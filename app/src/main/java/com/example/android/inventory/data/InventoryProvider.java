@@ -107,7 +107,7 @@ public class InventoryProvider extends ContentProvider {
 
         //price
         Integer price = values.getAsInteger(ItemEntry.COLUMN_ITEM_PRICE);
-        if(amount != null && amount < 0){
+        if(price != null && amount < 0){
             throw new IllegalArgumentException("Item requires valid price");
         }
 

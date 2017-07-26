@@ -39,7 +39,8 @@
         android:layout_width="75dp"
         android:layout_height="50dp"
         android:text="@string/ui_buy"
-        android:background="@color/accent"/>
+        android:background="@color/accent"
+        android:focusable="false"/>
 
     </LinearLayout>
 

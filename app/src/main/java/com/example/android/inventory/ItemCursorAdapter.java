@@ -27,7 +27,7 @@ public class ItemCursorAdapter extends CursorAdapter {
 
     private final MainActivity activity;
 
-    public ItemCursorAdapter(Context context, Cursor c){
+    public ItemCursorAdapter(Context context, Cursor c) {
         super(context, c, 0/*flags*/);
         this.activity = (MainActivity) context;
     }
@@ -65,16 +65,16 @@ public class ItemCursorAdapter extends CursorAdapter {
 
         final long id = cursor.getLong(cursor.getColumnIndex(ItemEntry._ID));
 
-        buyButton.setOnClickListener(new View.OnClickListener(){
+        buyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             //On click function
             public void onClick(View view) {
-                if(itemNumber > 0){
+                if (itemNumber > 0) {
                     activity.buyItem(id, itemNumber);
-                    Toast.makeText(context.getApplicationContext(),"You Bought 1 " + itemName,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), "You Bought 1 " + itemName, Toast.LENGTH_SHORT).show();
 
                 } else {
-                    Toast.makeText(context.getApplicationContext(),itemName + " not available.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context.getApplicationContext(), itemName + " not available.", Toast.LENGTH_SHORT).show();
 
                 }
 

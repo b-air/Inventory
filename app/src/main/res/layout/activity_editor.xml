@@ -38,7 +38,7 @@
             <EditText
                 android:id="@+id/edit_item_number"
                 android:hint="@string/hint_item_amount"
-                android:inputType="textCapWords"
+                android:inputType="number"
                 style="@style/EditorFieldStyle" />
         </LinearLayout>
     </LinearLayout>

@@ -26,10 +26,14 @@ import static android.R.attr.id;
 public class MainActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    /** Item data loader id */
+    /**
+     * Item data loader id
+     */
     private static final int ITEM_LOADER = 0;
 
-    /** ListView adapter */
+    /**
+     * ListView adapter
+     */
     ItemCursorAdapter mCursorAdapter;
 
     @Override
@@ -62,16 +66,11 @@ public class MainActivity extends AppCompatActivity implements
         itemListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                // Create new intent to go to {@link EditorActivity}
                 Intent intent = new Intent(MainActivity.this, EditorActivity.class);
-
-                // Form the content URI
                 Uri currentItemUri = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, id);
 
-                // Set the URI on the data field of the intent
                 intent.setData(currentItemUri);
 
-                // Launch the {@link EditorActivity} to display the data for the current pet.
                 startActivity(intent);
             }
         });
@@ -79,10 +78,10 @@ public class MainActivity extends AppCompatActivity implements
         getLoaderManager().initLoader(ITEM_LOADER, null, this);
     }
 
-    public void buyItem(long id, int amount){
+    public void buyItem(long id, int amount) {
         Uri currentItem = ContentUris.withAppendedId(ItemEntry.CONTENT_URI, id);
 
-        if(amount > 0){
+        if (amount > 0) {
             amount--;
         }
         ContentValues values = new ContentValues();
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements
         getContentResolver().update(currentItem, values, null, null);
     }
 
-    private void insertItem(){
+    private void insertItem() {
         // insert dummy data
         ContentValues values = new ContentValues();
         values.put(ItemEntry.COLUMN_ITEM_NAME, "Dummy item");
@@ -100,7 +99,7 @@ public class MainActivity extends AppCompatActivity implements
         Uri newUri = getContentResolver().insert(ItemEntry.CONTENT_URI, values);
     }
 
-    private void deleteAllItems(){
+    private void deleteAllItems() {
         int rowsDeleted = getContentResolver().delete(ItemEntry.CONTENT_URI, null, null);
         Log.v("CatalogActivity", rowsDeleted + " rows deleted from item database");
     }
@@ -136,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements
                 ItemEntry._ID,
                 ItemEntry.COLUMN_ITEM_NAME,
                 ItemEntry.COLUMN_ITEM_AMOUNT,
-                ItemEntry.COLUMN_ITEM_PRICE };
+                ItemEntry.COLUMN_ITEM_PRICE};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
