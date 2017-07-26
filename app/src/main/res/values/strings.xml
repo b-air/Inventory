@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Inventory</string>
+    <string name="ui_buy">Buy</string>
+    <string name="ui_out">Out of stock</string>
+    <string name="empty_view_title_text">Nothing in stock.</string>
+    <string name="empty_view_subtitle_text">Add an item first.</string>
+    <string name="editor_activity_title">Add Item</string>
+    <string name="item_overview">New Item</string>
+    <string name="hint_item_name">Item name</string>
+    <string name="hint_item_amount">Item number</string>
+    <string name="unit_price">$</string>
+    <string name="category_price">Price</string>
+    <string name="hint_price">Item price</string>
+    <string name="action_insert_dummy_data">Insert dummy item</string>
+    <string name="action_delete_all_entries">Delete all</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="editor_new_item">New Item</string>
+    <string name="editor_edit_item">Edit Item</string>
 </resources>
