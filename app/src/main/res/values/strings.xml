@@ -15,6 +15,9 @@
     <string name="action_delete_all_entries">Delete all</string>
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
     <string name="editor_new_item">New Item</string>
     <string name="editor_edit_item">Edit Item</string>
     <string name="editor_delete_item_failed">Failed to delete</string>
@@ -25,4 +28,7 @@
     <string name="order">Order more</string>
     <string name="category_mail">Supplier mail</string>
     <string name="default_mail">supply@amazon.com</string>
+    <string name="handle_intent_email">could not resolve sending mail</string>
+    <string name="intentType">image/*</string>
+    <string name="selectPicture">Select picture</string>
 </resources>

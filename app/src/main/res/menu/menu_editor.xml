@@ -16,7 +16,7 @@
         app:showAsAction="never" />
 
     <item
-        android:id="@+id/order_more"
+        android:id="@+id/action_order_more"
         android:title="@string/order"
         app:showAsAction="never" />
 

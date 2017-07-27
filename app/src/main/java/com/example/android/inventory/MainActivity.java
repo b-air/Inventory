@@ -92,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements
     private void insertItem() {
         // insert dummy data
         ContentValues values = new ContentValues();
+        values.put(ItemEntry.COLUMN_ITEM_IMAGE, ItemEntry.DEFAULT_IMAGE);
         values.put(ItemEntry.COLUMN_ITEM_NAME, "Dummy item");
         values.put(ItemEntry.COLUMN_ITEM_AMOUNT, 0);
         values.put(ItemEntry.COLUMN_ITEM_PRICE, 14);
@@ -133,6 +134,7 @@ public class MainActivity extends AppCompatActivity implements
         // Define a projection that specifies the columns from the table we care about.
         String[] projection = {
                 ItemEntry._ID,
+                ItemEntry.COLUMN_ITEM_IMAGE,
                 ItemEntry.COLUMN_ITEM_NAME,
                 ItemEntry.COLUMN_ITEM_AMOUNT,
                 ItemEntry.COLUMN_ITEM_PRICE};

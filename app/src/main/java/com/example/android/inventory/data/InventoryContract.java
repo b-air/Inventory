@@ -36,5 +36,9 @@ public class InventoryContract {
         public final static String COLUMN_ITEM_AMOUNT = "amount";
 
         public final static String COLUMN_ITEM_PRICE = "price";
+
+        public final static String COLUMN_ITEM_IMAGE = "image";
+
+        public static final String DEFAULT_IMAGE = "android.resource://com.example.android.inventory/drawable/placeholder";
     }
 }

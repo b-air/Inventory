@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,21 +42,25 @@ public class ItemCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(final View view, final Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
+        ImageView imageView = (ImageView) view.findViewById(R.id.product_image);
         TextView nameTextView = (TextView) view.findViewById(R.id.product_name);
         TextView amountTextView = (TextView) view.findViewById(R.id.product_items);
         TextView priceTextView = (TextView) view.findViewById(R.id.product_price);
 
-        // Find the columns of pet attributes that we're interested in
+        // Find the columns of item attributes that we're interested in
+        int imageIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_IMAGE);
         int nameColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_NAME);
         final int amountColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_AMOUNT);
         int priceColumnIndex = cursor.getColumnIndex(ItemEntry.COLUMN_ITEM_PRICE);
 
-        // Read the pet attributes from the Cursor for the current pet
+        // Read the pet attributes from the Cursor for the current item
+        String imageItem = cursor.getString(imageIndex);
         final String itemName = cursor.getString(nameColumnIndex);
         final int itemNumber = cursor.getInt(amountColumnIndex);
         String itemPrice = cursor.getString(priceColumnIndex);
 
-        // Update the TextViews with the attributes for the current pet
+        // Update the TextViews with the attributes for the current item
+        imageView.setImageURI(Uri.parse(imageItem));
         nameTextView.setText(itemName);
         amountTextView.setText("Items: " + itemNumber);
         priceTextView.setText(itemPrice + " $");
