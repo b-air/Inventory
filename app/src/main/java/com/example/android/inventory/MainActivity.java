@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity implements
         // insert dummy data
         ContentValues values = new ContentValues();
         values.put(ItemEntry.COLUMN_ITEM_NAME, "Dummy item");
-        values.put(ItemEntry.COLUMN_ITEM_AMOUNT, 10);
+        values.put(ItemEntry.COLUMN_ITEM_AMOUNT, 0);
         values.put(ItemEntry.COLUMN_ITEM_PRICE, 14);
 
         Uri newUri = getContentResolver().insert(ItemEntry.CONTENT_URI, values);

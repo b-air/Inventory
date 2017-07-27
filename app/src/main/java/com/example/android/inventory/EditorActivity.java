@@ -1,7 +1,9 @@
 package com.example.android.inventory;
 
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,7 +19,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.inventory.data.InventoryContract.ItemEntry;
 
@@ -40,7 +45,7 @@ public class EditorActivity extends AppCompatActivity implements
     private EditText mNameEditText;
 
     /** EditText for Amount */
-    private EditText mAmountEditText;
+    private TextView mAmountTextView;
 
     /** EditText for Price */
     private EditText mPriceEditText;
@@ -56,6 +61,9 @@ public class EditorActivity extends AppCompatActivity implements
             return false;
         }
     };
+
+    /** Quantity */
+    private int quantity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +82,11 @@ public class EditorActivity extends AppCompatActivity implements
         }
 
         mNameEditText = (EditText) findViewById(R.id.edit_item_name);
-        mAmountEditText = (EditText) findViewById(R.id.edit_item_number);
+        mAmountTextView = (TextView) findViewById(R.id.edit_item_number);
         mPriceEditText = (EditText) findViewById(R.id.edit_item_price);
 
         mNameEditText.setOnTouchListener(mTouchListener);
-        mAmountEditText.setOnTouchListener(mTouchListener);
+        mAmountTextView.setOnTouchListener(mTouchListener);
         mPriceEditText.setOnTouchListener(mTouchListener);
 
     }
@@ -114,7 +122,7 @@ public class EditorActivity extends AppCompatActivity implements
             int price = cursor.getInt(priceColumnIndex);
 
             mNameEditText.setText(name);
-            mAmountEditText.setText(String.valueOf(amount));
+            mAmountTextView.setText(String.valueOf(amount));
             mPriceEditText.setText(String.valueOf(price));
         }
 
@@ -123,7 +131,7 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mNameEditText.setText("");
-        mAmountEditText.setText("");
+        mAmountTextView.setText("");
         mPriceEditText.setText("");
     }
 
@@ -131,12 +139,12 @@ public class EditorActivity extends AppCompatActivity implements
     private void saveItem(){
         //read fields
         String name = mNameEditText.getText().toString().trim();
-        String amount = mAmountEditText.getText().toString().trim();
+        String amount = mAmountTextView.getText().toString().trim();
         String price = mPriceEditText.getText().toString().trim();
 
         // exit if empty
         if(mCurrentItemUri == null &&
-                TextUtils.isEmpty(name) && TextUtils.isEmpty(amount) &&
+                TextUtils.isEmpty(name) ||
                 TextUtils.isEmpty(price)){
             return;
         }
@@ -192,6 +200,7 @@ public class EditorActivity extends AppCompatActivity implements
                 finish();
                 return true;
             case R.id.action_delete:
+                showDeleteConfirmationDialog();
                 return true;
             case android.R.id.home:
                 if (!mItemHasChanged) {
@@ -229,5 +238,67 @@ public class EditorActivity extends AppCompatActivity implements
                     }
                 };
 
+    }
+
+    private void showDeleteConfirmationDialog() {
+        // Create an AlertDialog.Builder
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.delete_dialog_msg);
+        // Delete
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                deleteItem();
+            }
+        });
+        //Cancel
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void deleteItem() {
+        // Only perform the delete if this is an existing pet.
+        if (mCurrentItemUri != null) {
+            // Call the ContentResolver to delete the pet at the given content URI.
+            // Pass in null for the selection and selection args because the mCurrentPetUri
+            // content URI already identifies the pet that we want.
+            int rowsDeleted = getContentResolver().delete(mCurrentItemUri, null, null);
+
+            // Show a toast message depending on whether or not the delete was successful.
+            if (rowsDeleted == 0) {
+                // If no rows were deleted, then there was an error with the delete.
+                Toast.makeText(this, getString(R.string.editor_delete_item_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // Otherwise, the delete was successful and we can display a toast.
+                Toast.makeText(this, getString(R.string.editor_delete_item_successful),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // Close the activity
+        finish();
+    }
+
+    public void lessItem(View view) {
+        if (quantity <= 0) {
+            Toast.makeText(this, "Quantity can't be negative!", Toast.LENGTH_SHORT).show();
+        } else {
+            quantity--;
+            mAmountTextView.setText(String.valueOf(quantity));
+        }
+    }
+
+    public void moreItem(View view) {
+        quantity++;
+        mAmountTextView.setText(String.valueOf(quantity));
     }
 }
